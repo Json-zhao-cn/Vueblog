@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-rc.19">
+    <script>
+      (function() {
+        const userMode = localStorage.getItem('vuepress-reco-color-scheme') || 'auto';
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (userMode === 'dark' || (userMode === 'auto' && systemDarkMode)) {
+          document.documentElement.classList.toggle('dark', true);
+        }
+      })();
+    </script>
+    <title>Use stored procedure to get the new traction cdc rows | Manifacturing Industry Blog</title><meta name="description" content="This is a blog for manufacturing industry, some experiences just for json zhao.">
+    <link rel="preload" href="/assets/style-DRXNKcOj.css" as="style"><link rel="stylesheet" href="/assets/style-DRXNKcOj.css">
+    <link rel="modulepreload" href="/assets/app-DthsOC-b.js"><link rel="modulepreload" href="/assets/usp_GetCdcTableData.html-CQatUXZu.js">
+    <link rel="prefetch" href="/assets/timeline.html-4skHrjZE.js" as="script"><link rel="prefetch" href="/assets/posts.html-BHKi3C9h.js" as="script"><link rel="prefetch" href="/assets/friendship-link.html-C_wrFIcW.js" as="script"><link rel="prefetch" href="/assets/1.html-4h6WxNLP.js" as="script"><link rel="prefetch" href="/assets/2.html-dIGMQHAh.js" as="script"><link rel="prefetch" href="/assets/1.html-DHoMlN1R.js" as="script"><link rel="prefetch" href="/assets/1.html-BEVZpnpO.js" as="script"><link rel="prefetch" href="/assets/1.html-DEHrzoYc.js" as="script"><link rel="prefetch" href="/assets/1.html-Blr6mfuU.js" as="script"><link rel="prefetch" href="/assets/1.html-CBBiG6j8.js" as="script"><link rel="prefetch" href="/assets/1.html-unmVtQ0c.js" as="script"><link rel="prefetch" href="/assets/1.html-C-f2blij.js" as="script"><link rel="prefetch" href="/assets/1.html-iPMCfIup.js" as="script"><link rel="prefetch" href="/assets/1.html-C9o6XNpA.js" as="script"><link rel="prefetch" href="/assets/1.html-6IL03EnX.js" as="script"><link rel="prefetch" href="/assets/1.html-CdhrxVWX.js" as="script"><link rel="prefetch" href="/assets/1.html-Dxd6Xjav.js" as="script"><link rel="prefetch" href="/assets/1.html-_qgjaGdA.js" as="script"><link rel="prefetch" href="/assets/1.html-B3vo2gc7.js" as="script"><link rel="prefetch" href="/assets/1.html-B0aNne2S.js" as="script"><link rel="prefetch" href="/assets/2.html-BmJLg7GU.js" as="script"><link rel="prefetch" href="/assets/3.html-DBvU3gOz.js" as="script"><link rel="prefetch" href="/assets/index.html-ybRfPhfL.js" as="script"><link rel="prefetch" href="/assets/guide.html-BI4iHAp7.js" as="script"><link rel="prefetch" href="/assets/api.html-DCSFHYX1.js" as="script"><link rel="prefetch" href="/assets/home.html-D9yq0i1v.js" as="script"><link rel="prefetch" href="/assets/plugin.html-CHwc7s89.js" as="script"><link rel="prefetch" href="/assets/theme.html-C23CZTf4.js" as="script"><link rel="prefetch" href="/assets/PoorfamiliyOfficial_Corruption.html-DIPevSVh.js" as="script"><link rel="prefetch" href="/assets/PoorfamiliyWhite-collar_Difficult.html-Cz3Z8afQ.js" as="script"><link rel="prefetch" href="/assets/Men_WomenFriendship.html-D_i6j36n.js" as="script"><link rel="prefetch" href="/assets/ForeignCompany_CN_Leader_Leadership.html-CH2vzFZU.js" as="script"><link rel="prefetch" href="/assets/ForeignCompany_CN_Leader_Slavery.html-CNT608lr.js" as="script"><link rel="prefetch" href="/assets/What_is_MES.html-VdWGJkld.js" as="script"><link rel="prefetch" href="/assets/What_is_WMS.html-DVnS0px5.js" as="script"><link rel="prefetch" href="/assets/Why_I_like_Spacex.html-D75Uic1b.js" as="script"><link rel="prefetch" href="/assets/Why_I_like_Starlink.html-DCN4Fgdr.js" as="script"><link rel="prefetch" href="/assets/ELKSimpeIntroduce.html-CpUu7bXY.js" as="script"><link rel="prefetch" href="/assets/SqliteCommSql.html-ny-Luul-.js" as="script"><link rel="prefetch" href="/assets/cdcImplement.html-DQscDs9y.js" as="script"><link rel="prefetch" href="/assets/ModifyCDCTable.html-DhBZblH2.js" as="script"><link rel="prefetch" href="/assets/SQL Server CDC Table Explain.html-Bx88G_Vo.js" as="script"><link rel="prefetch" href="/assets/index.html-IX3ILLVv.js" as="script"><link rel="prefetch" href="/assets/usp_GetCDCQueryStartMode.html-CB72oMQX.js" as="script"><link rel="prefetch" href="/assets/usp_UpdateNextCDCTraceData.html-CrSWw5F_.js" as="script"><link rel="prefetch" href="/assets/GetFile.html-C_hY3gd6.js" as="script"><link rel="prefetch" href="/assets/NIFI1.2.8Version.html-Duhk0kvf.js" as="script"><link rel="prefetch" href="/assets/NIFI2.4.0Version.html-BPtQCrDy.js" as="script"><link rel="prefetch" href="/assets/404.html-Cag6ccT3.js" as="script"><link rel="prefetch" href="/assets/Valine.min-_LyT3bfY.js" as="script"><link rel="prefetch" href="/assets/giscus-aTimukGI-DWEKOTfS.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container series--no"><header class="navbar-container not-open"><div class="navbar-inner"><div class="site-brand nav-item"><img class="logo" src="/logo.png" alt="Manifacturing Industry Blog"><a href="/" class="site-name can-hide">Manifacturing Industry Blog</a></div><div class="nav-item navbar-links-wrapper" style=""><div><form class="search-box" role="search"><input type="search" autocomplete="off" spellcheck="false" value><!----></form></div><nav class="navbar-links"><!--[--><div class="navbar-links__item"><a href="/" class="link" aria-label="Home"><!--[--><!--]--><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Home<!--]--></span></span><!--[--><!--]--></a></div><div class="navbar-links__item"><a href="/categories/Skills/1.html" class="link" aria-label="Categories"><!--[--><!--]--><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Categories<!--]--></span></span><!--[--><!--]--></a></div><div class="navbar-links__item"><a href="/tags/SQLServer/1.html" class="link" aria-label="Tags"><!--[--><!--]--><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Tags<!--]--></span></span><!--[--><!--]--></a></div><div class="navbar-links__item"><div class="dropdown-link"><button class="dropdown-link__title" type="button" aria-label="Docs"><span class="xicon-container left title"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Docs<!--]--></span></span><span class="arrow down"></span></button><button class="dropdown-link--mobile__title" type="button" aria-label="Docs"><span class="title"><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Docs<!--]--></span></span></span><span class="right arrow"></span></button><ul class="dropdown-link__container" style="display:none;"><!--[--><li class="dropdown-link__item"><a href="/docs/theme-reco/theme" class="link" aria-label="vuepress-reco"><!--[--><!--]--><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->vuepress-reco<!--]--></span></span><!--[--><!--]--></a></li><li class="dropdown-link__item"><a href="/blogs/other/guide" class="link" aria-label="vuepress-theme-reco"><!--[--><!--]--><span class="xicon-container left"><!--[--><!----><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->vuepress-theme-reco<!--]--></span></span><!--[--><!--]--></a></li><!--]--></ul></div></div><!--]--><!----><span class="xicon-container btn-toggle-dark-mode btn--dark-mode navbar-links__item"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" style="width:20px;height:20px;font-size:20px;color:;"><path d="M15 2h2v3h-2z" fill="currentColor"></path><path d="M27 15h3v2h-3z" fill="currentColor"></path><path d="M15 27h2v3h-2z" fill="currentColor"></path><path d="M2 15h3v2H2z" fill="currentColor"></path><path d="M5.45 6.884l1.414-1.415l2.121 2.122l-1.414 1.414z" fill="currentColor"></path><path d="M23 7.58l2.121-2.12l1.414 1.414l-2.121 2.121z" fill="currentColor"></path><path d="M23.002 24.416l1.415-1.414l2.12 2.122l-1.413 1.414z" fill="currentColor"></path><path d="M5.47 25.13L7.59 23L9 24.42l-2.12 2.12l-1.41-1.41z" fill="currentColor"></path><path d="M16 8a8 8 0 1 0 8 8a8 8 0 0 0-8-8zm0 14a6 6 0 0 1 0-12z" fill="currentColor"></path></svg></span><ul class="social-links navbar-links__item"><!--[--><!--]--></ul></nav><span class="xicon-container btn-toggle-menus"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" style="width:20px;height:20px;font-size:20px;color:;"><circle cx="16" cy="8" r="2" fill="currentColor"></circle><circle cx="16" cy="16" r="2" fill="currentColor"></circle><circle cx="16" cy="24" r="2" fill="currentColor"></circle></svg></span></div></div></header><!----><!----><!----><div class="theme-main" style=""><!----><!--[--><main class="page-container"><div class="page-content"><h1 class="page-title">Use stored procedure to get the new traction cdc rows</h1><div class="page-info"><span class="xicon-container left"><!--[--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" class="xicon-icon" style="width:18px;height:18px;font-size:18px;color:;"><path d="M16 4a5 5 0 1 1-5 5a5 5 0 0 1 5-5m0-2a7 7 0 1 0 7 7a7 7 0 0 0-7-7z" fill="currentColor"></path><path d="M26 30h-2v-5a5 5 0 0 0-5-5h-6a5 5 0 0 0-5 5v5H6v-5a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7z" fill="currentColor"></path></svg><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->json zhao<!--]--></span></span><span class="xicon-container left"><!--[--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" class="xicon-icon" style="width:18px;height:18px;font-size:18px;color:;"><path d="M26 4h-4V2h-2v2h-8V2h-2v2H6c-1.1 0-2 .9-2 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 22H6V12h20v14zm0-16H6V6h4v2h2V6h8v2h2V6h4v4z" fill="currentColor"></path></svg><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->2025/10/20<!--]--></span></span><span class="xicon-container left"><!--[--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" class="xicon-icon" style="width:18px;height:18px;font-size:18px;color:;"><path d="M11.17 6l3.42 3.41l.58.59H28v16H4V6h7.17m0-2H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2H16l-3.41-3.41A2 2 0 0 0 11.17 4z" fill="currentColor"></path></svg><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[--><!--[--><a href="/categories/Skills/1.html" class="">Skills</a><!--]--><!--]--></span></span><span class="xicon-container left"><!--[--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" class="xicon-icon" style="width:18px;height:18px;font-size:18px;color:;"><path d="M10 14a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4zm0-6a2 2 0 1 0 1.998 2.004A2.002 2.002 0 0 0 10 8z" fill="currentColor"></path><path d="M16.644 29.415L2.586 15.354A2 2 0 0 1 2 13.941V4a2 2 0 0 1 2-2h9.941a2 2 0 0 1 1.414.586l14.06 14.058a2 2 0 0 1 0 2.828l-9.943 9.943a2 2 0 0 1-2.829 0zM4 4v9.942L18.058 28L28 18.058L13.942 4z" fill="currentColor"></path></svg><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[--><!--[--><a href="/tags/SQLServerCDC/1.html" class="">SQLServerCDC</a><!--]--><!--]--></span></span><!----></div><div class="theme-reco-md-content"><div><div class="language-sql line-numbers-mode" data-highlighter="prismjs" data-ext="sql" data-title="sql"><pre><code><span class="line"><span class="token keyword">USE</span> <span class="token punctuation">[</span>YourDataBase<span class="token punctuation">]</span></span>
+<span class="line">GO</span>
+<span class="line"><span class="token comment">/****** Object:  StoredProcedure [dbo].[usp_GetCdcTableData]    Script Date: 2025/11/10 13:58:27 ******/</span></span>
+<span class="line"><span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span></span>
+<span class="line">GO</span>
+<span class="line"><span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span></span>
+<span class="line">GO</span>
+<span class="line"></span>
+<span class="line"><span class="token keyword">ALTER</span> <span class="token keyword">PROCEDURE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>usp_GetCdcTableData<span class="token punctuation">]</span></span>
+<span class="line">    <span class="token variable">@PKColumns</span> NVARCHAR<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token variable">@PageSize</span>  <span class="token keyword">INT</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token variable">@TableName</span> NVARCHAR<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span></span>
+<span class="line"><span class="token keyword">AS</span></span>
+<span class="line"><span class="token keyword">BEGIN</span></span>
+<span class="line">    <span class="token keyword">SET</span> NOCOUNT <span class="token keyword">ON</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- INITIAL SETUP</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@CaptureInstance</span> SYSNAME <span class="token operator">=</span> <span class="token variable">@TableName</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@CdcTableName</span> SYSNAME <span class="token operator">=</span> <span class="token string">&#39;cdc.&#39;</span> <span class="token operator">+</span> <span class="token variable">@CaptureInstance</span> <span class="token operator">+</span> <span class="token string">&#39;_CT&#39;</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@Columns</span> NVARCHAR<span class="token punctuation">(</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@LastSyncLSN</span> <span class="token keyword">BINARY</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@LastSeqVal</span> <span class="token keyword">VARBINARY</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@HasRemaining</span> <span class="token keyword">BIT</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@NextLSN</span> <span class="token keyword">BINARY</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@Where</span> NVARCHAR<span class="token punctuation">(</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">DECLARE</span> <span class="token variable">@sql</span> NVARCHAR<span class="token punctuation">(</span>MAX<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- GET CAPTURED COLUMNS</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">SELECT</span> <span class="token variable">@Columns</span> <span class="token operator">=</span> STRING_AGG<span class="token punctuation">(</span><span class="token string">&#39;c.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span>a<span class="token punctuation">.</span>column_name<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&#39;, &#39;</span><span class="token punctuation">)</span></span>
+<span class="line">    <span class="token keyword">FROM</span> cdc<span class="token punctuation">.</span>captured_columns a</span>
+<span class="line">    <span class="token keyword">JOIN</span> cdc<span class="token punctuation">.</span>change_tables b <span class="token keyword">ON</span> a<span class="token punctuation">.</span>object_id <span class="token operator">=</span> b<span class="token punctuation">.</span>object_id</span>
+<span class="line">    <span class="token keyword">WHERE</span> b<span class="token punctuation">.</span>capture_instance <span class="token operator">=</span> <span class="token variable">@CaptureInstance</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- GET LAST SYNC POINT (TEMP DEFAULT FOR DEMO)</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">     <span class="token keyword">SELECT</span> <span class="token variable">@LastSyncLSN</span> <span class="token operator">=</span> LastSyncLSN<span class="token punctuation">,</span> <span class="token variable">@LastSeqVal</span> <span class="token operator">=</span> SeqVal</span>
+<span class="line">     <span class="token keyword">FROM</span> dbo<span class="token punctuation">.</span>CDC_Sync_Control</span>
+<span class="line">     <span class="token keyword">WHERE</span> TableName <span class="token operator">=</span> <span class="token variable">@TableName</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token keyword">IF</span> <span class="token variable">@LastSyncLSN</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span></span>
+<span class="line">    <span class="token keyword">BEGIN</span></span>
+<span class="line">        <span class="token keyword">SET</span> <span class="token variable">@LastSyncLSN</span> <span class="token operator">=</span> <span class="token number">0x00000000000000000000</span><span class="token punctuation">;</span></span>
+<span class="line">        <span class="token keyword">SET</span> <span class="token variable">@LastSeqVal</span>  <span class="token operator">=</span> <span class="token number">0x00000000000000000000</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">END</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- DETERMINE QUERY START MODE</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">EXEC</span> dbo<span class="token punctuation">.</span><span class="token punctuation">[</span>usp_GetCdcQueryStartMode<span class="token punctuation">]</span> </span>
+<span class="line">        <span class="token variable">@TableName</span> <span class="token operator">=</span> <span class="token variable">@TableName</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token variable">@LastSyncLSN</span> <span class="token operator">=</span> <span class="token variable">@LastSyncLSN</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token variable">@LastSeqVal</span> <span class="token operator">=</span> <span class="token variable">@LastSeqVal</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token variable">@HasRemaining</span> <span class="token operator">=</span> <span class="token variable">@HasRemaining</span> OUTPUT<span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- COMPUTE CORRECT WHERE CONDITION</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">IF</span> <span class="token variable">@HasRemaining</span> <span class="token operator">=</span> <span class="token number">1</span></span>
+<span class="line">    <span class="token keyword">BEGIN</span></span>
+<span class="line">        <span class="token comment">-- Still have remaining rows in the same LSN</span></span>
+<span class="line">        <span class="token keyword">SET</span> <span class="token variable">@Where</span> <span class="token operator">=</span> N<span class="token string">&#39;c.__$start_lsn = @LastSyncLSN AND c.__$seqval &gt; @LastSeqVal&#39;</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">END</span></span>
+<span class="line">    <span class="token keyword">ELSE</span></span>
+<span class="line">    <span class="token keyword">BEGIN</span></span>
+<span class="line">        <span class="token comment">-- Need to start from the NEXT LSN</span></span>
+<span class="line">        <span class="token keyword">DECLARE</span> <span class="token variable">@getNextLSNsql</span> NVARCHAR<span class="token punctuation">(</span>MAX<span class="token punctuation">)</span> <span class="token operator">=</span> </span>
+<span class="line">            N<span class="token string">&#39;SELECT @NextLSN_OUT = MIN(__$start_lsn) </span>
+<span class="line">              FROM &#39;</span> <span class="token operator">+</span> <span class="token variable">@CdcTableName</span> <span class="token operator">+</span> <span class="token string">&#39; </span>
+<span class="line">              WHERE __$start_lsn &gt; @LastSyncLSN;&#39;</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">        <span class="token keyword">EXEC</span> sp_executesql</span>
+<span class="line">            <span class="token variable">@getNextLSNsql</span><span class="token punctuation">,</span></span>
+<span class="line">            N<span class="token string">&#39;@LastSyncLSN binary(10), @NextLSN_OUT binary(10) OUTPUT&#39;</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@LastSyncLSN</span> <span class="token operator">=</span> <span class="token variable">@LastSyncLSN</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@NextLSN_OUT</span> <span class="token operator">=</span> <span class="token variable">@NextLSN</span> OUTPUT<span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">        <span class="token keyword">IF</span> <span class="token variable">@NextLSN</span> <span class="token operator">IS</span> <span class="token boolean">NULL</span></span>
+<span class="line">            <span class="token keyword">SET</span> <span class="token variable">@Where</span> <span class="token operator">=</span> N<span class="token string">&#39;1 = 0&#39;</span><span class="token punctuation">;</span> <span class="token comment">-- nothing new</span></span>
+<span class="line">        <span class="token keyword">ELSE</span></span>
+<span class="line">            <span class="token keyword">SET</span> <span class="token variable">@Where</span> <span class="token operator">=</span> N<span class="token string">&#39;c.__$start_lsn = @NextLSN&#39;</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">END</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- MAIN DYNAMIC SQL (MERGE-SAFE)</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">SET</span> <span class="token variable">@sql</span> <span class="token operator">=</span> N<span class="token string">&#39;</span>
+<span class="line">    -- Start with dummy select to make ;WITH valid</span>
+<span class="line">    SELECT 1 AS dummy INTO #_dummy; DROP TABLE #_dummy;</span>
+<span class="line"></span>
+<span class="line">    ;WITH BasePage AS (</span>
+<span class="line">        SELECT TOP (CAST(@PageSize * 1.1 AS INT)) *</span>
+<span class="line">        FROM &#39;</span> <span class="token operator">+</span> <span class="token variable">@CdcTableName</span> <span class="token operator">+</span> N<span class="token string">&#39; c</span>
+<span class="line">        WHERE &#39;</span> <span class="token operator">+</span> <span class="token variable">@Where</span> <span class="token operator">+</span> N<span class="token string">&#39;</span>
+<span class="line">        ORDER BY c.__$start_lsn ASC, c.__$seqval ASC</span>
+<span class="line">    ),</span>
+<span class="line">    Boundary AS (</span>
+<span class="line">        SELECT </span>
+<span class="line">            MAX(__$start_lsn) AS MaxLSN,</span>
+<span class="line">            MAX(__$seqval) AS MaxSeqVal</span>
+<span class="line">        FROM (</span>
+<span class="line">            SELECT TOP (@PageSize) __$start_lsn, __$seqval</span>
+<span class="line">            FROM BasePage</span>
+<span class="line">            ORDER BY __$start_lsn ASC, __$seqval ASC</span>
+<span class="line">        ) x</span>
+<span class="line">    ),</span>
+<span class="line">    NextPage AS (</span>
+<span class="line">        SELECT *</span>
+<span class="line">        FROM BasePage bp</span>
+<span class="line">        CROSS JOIN Boundary b</span>
+<span class="line">        WHERE</span>
+<span class="line">            (bp.__$start_lsn &lt; b.MaxLSN)</span>
+<span class="line">            OR (bp.__$start_lsn = b.MaxLSN AND bp.__$seqval &lt;= b.MaxSeqVal)</span>
+<span class="line">    ),</span>
+<span class="line">    GrpOps AS (</span>
+<span class="line">        SELECT</span>
+<span class="line">            np.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span><span class="token variable">@PKColumns</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39; AS PK,</span>
+<span class="line">            np.__$start_lsn,</span>
+<span class="line">            np.__$seqval,</span>
+<span class="line">            MAX(CASE WHEN np.__$operation = 1 THEN 1 ELSE 0 END) AS HasOp1,</span>
+<span class="line">            MAX(CASE WHEN np.__$operation = 2 THEN 1 ELSE 0 END) AS HasOp2,</span>
+<span class="line">            MAX(CASE WHEN np.__$operation = 3 THEN 1 ELSE 0 END) AS HasOp3,</span>
+<span class="line">            MAX(CASE WHEN np.__$operation = 4 THEN 1 ELSE 0 END) AS HasOp4</span>
+<span class="line">        FROM NextPage np</span>
+<span class="line">        GROUP BY np.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span><span class="token variable">@PKColumns</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39;, np.__$start_lsn, np.__$seqval</span>
+<span class="line">    ),</span>
+<span class="line">    Classified AS (</span>
+<span class="line">        SELECT</span>
+<span class="line">            g.PK,</span>
+<span class="line">            g.__$start_lsn,</span>
+<span class="line">            g.__$seqval,</span>
+<span class="line">            CASE</span>
+<span class="line">                WHEN g.HasOp1 = 1 AND g.HasOp2 = 1 THEN 4</span>
+<span class="line">                WHEN g.HasOp3 = 1 AND g.HasOp4 = 1 THEN 4</span>
+<span class="line">                WHEN g.HasOp2 = 1 OR g.HasOp4 = 1 THEN 2</span>
+<span class="line">                WHEN g.HasOp1 = 1 OR g.HasOp3 = 1 THEN 1</span>
+<span class="line">            END AS FinalOpGroup</span>
+<span class="line">        FROM GrpOps g</span>
+<span class="line">    ),</span>
+<span class="line">    FilteredPageRows AS (</span>
+<span class="line">        SELECT</span>
+<span class="line">            np.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span><span class="token variable">@PKColumns</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39; AS PK,</span>
+<span class="line">            np.__$start_lsn,</span>
+<span class="line">            np.__$seqval,</span>
+<span class="line">            np.__$operation AS SourceOp,</span>
+<span class="line">            CASE</span>
+<span class="line">                WHEN cls.FinalOpGroup = 4 AND np.__$operation IN (2,4) THEN 4</span>
+<span class="line">                WHEN cls.FinalOpGroup = 2 AND np.__$operation = 2 THEN 2</span>
+<span class="line">                WHEN cls.FinalOpGroup = 1 AND np.__$operation IN (1,3) THEN 1</span>
+<span class="line">            END AS FinalOp</span>
+<span class="line">        FROM NextPage np</span>
+<span class="line">        INNER JOIN Classified cls</span>
+<span class="line">            ON np.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span><span class="token variable">@PKColumns</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39; = cls.PK</span>
+<span class="line">            AND np.__$start_lsn = cls.__$start_lsn</span>
+<span class="line">            AND np.__$seqval = cls.__$seqval</span>
+<span class="line">        WHERE</span>
+<span class="line">            (cls.FinalOpGroup = 4 AND np.__$operation IN (2,4))</span>
+<span class="line">            OR (cls.FinalOpGroup = 2 AND np.__$operation = 2)</span>
+<span class="line">            OR (cls.FinalOpGroup = 1 AND np.__$operation IN (1,3))</span>
+<span class="line">    ),</span>
+<span class="line">    LatestPerPK AS (</span>
+<span class="line">        SELECT</span>
+<span class="line">            f.PK,</span>
+<span class="line">            f.__$start_lsn,</span>
+<span class="line">            f.__$seqval,</span>
+<span class="line">            f.SourceOp,</span>
+<span class="line">            f.FinalOp,</span>
+<span class="line">            ROW_NUMBER() OVER (</span>
+<span class="line">                PARTITION BY f.PK</span>
+<span class="line">                ORDER BY f.__$start_lsn DESC, f.__$seqval DESC</span>
+<span class="line">            ) AS rn</span>
+<span class="line">        FROM FilteredPageRows f</span>
+<span class="line">    )</span>
+<span class="line">    SELECT</span>
+<span class="line">        l.__$start_lsn,</span>
+<span class="line">        l.__$seqval,</span>
+<span class="line">        l.FinalOp,</span>
+<span class="line">        &#39;</span> <span class="token operator">+</span> <span class="token variable">@Columns</span> <span class="token operator">+</span> N<span class="token string">&#39;</span>
+<span class="line">    FROM LatestPerPK l</span>
+<span class="line">    INNER JOIN &#39;</span> <span class="token operator">+</span> <span class="token variable">@CdcTableName</span> <span class="token operator">+</span> N<span class="token string">&#39; c</span>
+<span class="line">        ON c.&#39;</span> <span class="token operator">+</span> QUOTENAME<span class="token punctuation">(</span><span class="token variable">@PKColumns</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&#39; = l.PK</span>
+<span class="line">        AND c.__$start_lsn = l.__$start_lsn</span>
+<span class="line">        AND c.__$seqval = l.__$seqval</span>
+<span class="line">        AND c.__$operation = l.SourceOp</span>
+<span class="line">    WHERE l.rn = 1</span>
+<span class="line">    ORDER BY l.__$start_lsn, l.__$seqval;&#39;</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token comment">-- EXECUTE MAIN SQL</span></span>
+<span class="line">    <span class="token comment">------------------------------------------------------------</span></span>
+<span class="line">    <span class="token keyword">IF</span> <span class="token variable">@HasRemaining</span> <span class="token operator">=</span> <span class="token number">1</span></span>
+<span class="line">    <span class="token keyword">BEGIN</span></span>
+<span class="line">        <span class="token keyword">EXEC</span> sp_executesql </span>
+<span class="line">            <span class="token variable">@sql</span><span class="token punctuation">,</span></span>
+<span class="line">            N<span class="token string">&#39;@LastSyncLSN binary(10), @LastSeqVal varbinary(10), @PageSize int&#39;</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@LastSyncLSN</span> <span class="token operator">=</span> <span class="token variable">@LastSyncLSN</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@LastSeqVal</span>  <span class="token operator">=</span> <span class="token variable">@LastSeqVal</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@PageSize</span>    <span class="token operator">=</span> <span class="token variable">@PageSize</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">END</span></span>
+<span class="line">    <span class="token keyword">ELSE</span></span>
+<span class="line">    <span class="token keyword">BEGIN</span></span>
+<span class="line">        <span class="token keyword">EXEC</span> sp_executesql </span>
+<span class="line">            <span class="token variable">@sql</span><span class="token punctuation">,</span></span>
+<span class="line">            N<span class="token string">&#39;@NextLSN binary(10), @PageSize int&#39;</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@NextLSN</span>  <span class="token operator">=</span> <span class="token variable">@NextLSN</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token variable">@PageSize</span> <span class="token operator">=</span> <span class="token variable">@PageSize</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token keyword">END</span></span>
+<span class="line"><span class="token keyword">END</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></div><footer class="page-meta"><!----><div class="meta-item last-updated"><span class="xicon-container left meta-item-label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 32 32" class="xicon-icon" style="width:20px;height:20px;font-size:20px;color:;"><path d="M26 4h-4V2h-2v2h-8V2h-2v2H6c-1.1 0-2 .9-2 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 22H6V12h20v14zm0-16H6V6h4v2h2V6h8v2h2V6h4v4z" fill="currentColor"></path></svg><!--]--><span class="xicon-content" style="color:;font-size:14px;"><!--[-->Last Updated 2025/11/12 20:22:32<!--]--></span></span></div></footer><!----><!----></div><!----></main><!--]--></div></div><!--[--><!----><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-DthsOC-b.js" defer></script>
+  </body>
+</html>

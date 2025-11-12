@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app-DthsOC-b.js";const r={};function n(o,c){return a(),t("div")}const i=e(r,[["render",n]]),l=JSON.parse('{"path":"/tags/ChinaForeignEnterprise/1.html","title":"","lang":"en-US","frontmatter":{"layout":"Categories"},"headers":[],"git":{},"filePathRelative":null}');export{i as comp,l as data};
