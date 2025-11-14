@@ -49,7 +49,13 @@ export default defineUserConfig({
     },
     navbar: [
       { text: "Home", link: "/" },
-      { text: "Categories", link: "/categories/Skills/1.html" },
+      { text: "Skills", link: "/categories/Skills/1.html" },
+      { text: "ELK", link: "/categories/ELK/1.html" },
+      { text: "ETL", link: "/categories/ETL/1.html" },
+      { text: "MES", link: "/categories/MES/1.html" },
+      { text: "WMS", link: "/categories/WMS/1.html" },
+      { text: "Digitalization", link: "/categories/Digitalization/1.html" },
+      { text: "Experiences", link: "/categories/Experience/1.html" },
       // Use the tags index instead of a hard-coded tag page to avoid 404s
       { text: "Tags", link: "/tags/SQLServer/1.html" },
       {
