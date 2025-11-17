@@ -6,7 +6,7 @@ import { webpackBundler } from '@vuepress/bundler-webpack'
 export default defineUserConfig({
   // Base URL for deploying to GitHub Pages. If you publish to
   // https://<user>.github.io/<repo>/ you must set base to '/<repo>/'
-  base: '/Vueblog/',
+  base: '/MdBlog/',
   title: "Manifacturing Industry Blog",
   description: "This is a blog for manufacturing industry, some experiences just for json zhao.",
   // Use Vite bundler with tuned options to reduce watcher / pre-bundle overhead on Windows
@@ -35,18 +35,18 @@ export default defineUserConfig({
     docsDir: "example",
     lastUpdatedText: "",
     // series 为原 sidebar
-    series: {
-      "/docs/theme-reco/": [
-        {
-          text: "module one",
-          children: ["home", "theme"],
-        },
-        {
-          text: "module two",
-          children: ["api", "plugin"],
-        },
-      ],
-    },
+    // series: {
+    //   // "/docs/theme-reco/": [
+    //   //   {
+    //   //     text: "module one",
+    //   //     children: ["home", "theme"],
+    //   //   },
+    //   //   {
+    //   //     text: "module two",
+    //   //     children: ["api", "plugin"],
+    //   //   },
+    //   // ],
+    // },
     navbar: [
       { text: "Home", link: "/" },
       { text: "Skills", link: "/categories/Skills/1.html" },
@@ -54,18 +54,18 @@ export default defineUserConfig({
       { text: "ETL", link: "/categories/ETL/1.html" },
       { text: "MES", link: "/categories/MES/1.html" },
       { text: "WMS", link: "/categories/WMS/1.html" },
-      { text: "Digitalization", link: "/categories/Digitalization/1.html" },
-      { text: "Experiences", link: "/categories/Experience/1.html" },
+      { text: "Project", link: "/categories/Project/1.html" },
+      //{ text: "Digitalization", link: "/categories/Digitalization/1.html" },
+      //{ text: "Experiences", link: "/categories/Experience/1.html" },
       // Use the tags index instead of a hard-coded tag page to avoid 404s
       { text: "Tags", link: "/tags/SQLServer/1.html" },
-      {
-        text: "Docs",
-        children: [
-          { text: "vuepress-reco", link: "/docs/theme-reco/theme" },
-          { text: "vuepress-theme-reco", link: "/blogs/other/guide" },
-        ],
-      },
-    ],
+      // {
+      //   text: "Docs",
+      //   children: [
+      //     { text: "vuepress-reco", link: "/docs/theme-reco/theme" },
+      //     { text: "vuepress-theme-reco", link: "/blogs/other/guide" },
+      //   ],
+      // },
     // bulletin: {
     //   body: [
     //     {
@@ -133,6 +133,6 @@ export default defineUserConfig({
     //     // hideComments: true // 隐藏评论
     //   },
     // },
-  }),
+  ]}),
   // debug: true,
 });
